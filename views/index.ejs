@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+    BPCE Timeline
+  </title>
+</head>
+
+<body>
+  <div id="AppContainer">
+  </div>
+</body>
+
+<script src="<%= instanceUrl %>/lightning/lightning.out.js"></script>
+
+<script>  
+  let appName = "c:goccTimelineAppOut";
+
+  $Lightning.use(appName,
+    function () {
+      $Lightning.createComponent("c:goccTimelineGlobal", { 
+        poste : '',
+        persons : "['0033O00000IHcKeQAL' , '0033O00000IHbtkQAD' , '0033O00000IHcKfQAL']"
+      }, "AppContainer");
+    }, 
+    "<%= instanceUrl %>", 
+    "<%= accessToken %>"
+  );
+
+</script>
+
+</html>
