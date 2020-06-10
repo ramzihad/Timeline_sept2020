@@ -88,6 +88,14 @@ app.get('/', function (req, res, next) {
     }
 });
 
+app.get('/home', function (req, res, next) {    
+    res.render('home');
+});
+
+app.get('/timeline', function (req, res, next) {    
+    res.render('timeline');
+});
+
 app.listen(app.get('port'), function () {
     console.log('Server listening for HTTP on ' + app.get('port'));
 });
