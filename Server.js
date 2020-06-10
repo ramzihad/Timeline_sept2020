@@ -115,6 +115,10 @@ app.get('/timelineUrl', function (req, res, next) {
     response.end();
 });
 
+app.get('/redirect', function (req, res, next) {
+    res.render('redirect');
+});
+
 app.listen(app.get('port'), function () {
     console.log('Server listening for HTTP on ' + app.get('port'));
 });
