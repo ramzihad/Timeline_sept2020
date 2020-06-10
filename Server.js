@@ -62,9 +62,7 @@ app.get('/auth/callback', function (req, res) {
 
     let authorizationCode = req.query.code;
     conn.authorize(authorizationCode, function (err, userInfo) {
-        if (err) {
-            return console.error(err);
-        }
+        if (err) {return console.error(err)}
 
         req.session.accessToken = conn.accessToken;
         req.session.refreshToken = conn.refreshToken;
