@@ -62,7 +62,9 @@ app.get('/auth/callback', function (req, res) {
 
     let authorizationCode = req.query.code;
     conn.authorize(authorizationCode, function (err, userInfo) {
-        if (err) {return console.error(err)}
+        if (err) {
+            return console.error(err)
+        }
 
         req.session.accessToken = conn.accessToken;
         req.session.refreshToken = conn.refreshToken;
@@ -71,13 +73,16 @@ app.get('/auth/callback', function (req, res) {
         );
 
         req.session.userInfo = userInfo;
+        
+        let rediretUrl = req.query.retUrl || '/';
+        console.log(rediretUrl);
 
-        res.redirect('/');
+        res.redirect(rediretUrl);
     });
 });
 
-app.get('/', function (req, res, next) {    
-    if (req.session.accessToken) {       
+app.get('/', function (req, res, next) {
+    if (req.session.accessToken) {
         res.render('index', {
             instanceUrl: req.session.instanceUrl,
             accessToken: req.session.accessToken
@@ -88,12 +93,26 @@ app.get('/', function (req, res, next) {
     }
 });
 
-app.get('/home', function (req, res, next) {    
+app.get('/home', function (req, res, next) {
     res.render('home');
 });
 
-app.get('/timeline', function (req, res, next) {    
+app.get('/timeline', function (req, res, next) {
     res.render('timeline');
+});
+
+app.get('/timelineUrl', function (req, res, next) {
+    if (!req.session.accessToken) {
+        response.writeHead(302, {
+            'Location': '/auth/login'           
+        });
+    }else{
+        response.writeHead(200, {
+            'Location': '/'           
+        });
+    }
+
+    response.end();
 });
 
 app.listen(app.get('port'), function () {
@@ -107,8 +126,8 @@ if (process.env.NODE_ENV !== 'production') {
         key: fs.readFileSync('./sec/key.pem', 'utf8'),
         cert: fs.readFileSync('./sec/server.crt', 'utf8')
     };
-    
+
     https.createServer(options, app).listen(app.get('https_port'), function () {
         console.log("Server listening for HTTPS on port ", app.get('https_port'));
-    });    
+    });
 }

@@ -1,7 +1,40 @@
-<iframe id="inlineTimeline" 
-    title="Inline Timeline" 
-    width="100%" 
-    height="100%" 
-    style="border: none"
-    src="https://gocc-poc01.herokuapp.com">
-</iframe>
+<html lang="en">
+
+</html>
+
+<head>
+    <title>
+        BPCE Timeline
+    </title>
+</head>
+
+<body>
+    <iframe id="inlineTimeline" 
+        title="Inline Timeline"
+        width="100%" 
+        height="100%" 
+        style="border: none;">
+    </iframe>
+</body>
+
+<script>
+    var xhr = new XMLHttpRequest();
+
+    xhr.onload = function () {
+        if (xhr.status == 200) {
+            document.getElementById('inlineTimeline').src =
+            xhr.getResponseHeader('Location');
+        }
+        if (xhr.status == 302) {       
+            var redirectUrl = xhr.getResponseHeader('Location') + 
+            '?retUrl=/redirect' + 
+
+            window.open(redirectUrl);
+        }
+    };
+
+    xhr.open('GET', '/timelineUrl');
+    xhr.send();
+</script>
+
+</html>
