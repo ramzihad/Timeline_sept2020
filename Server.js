@@ -52,6 +52,7 @@ let oauth2 = new jsforce.OAuth2({
 });
 
 app.get('/auth/login', function (req, res) {
+    req.session.retUrl = req.query.retUrl;
     res.redirect(oauth2.getAuthorizationUrl());
 });
 
@@ -74,7 +75,7 @@ app.get('/auth/callback', function (req, res) {
 
         req.session.userInfo = userInfo;
         
-        let rediretUrl = req.query.retUrl || '/';
+        let rediretUrl = req.session.retUrl || '/';
         console.log(rediretUrl);
 
         res.redirect(rediretUrl);
@@ -102,13 +103,13 @@ app.get('/timeline', function (req, res, next) {
 });
 
 app.get('/timelineUrl', function (req, res, next) {
-    if (!req.session.accessToken) {
-        res.writeHead(302, {
-            'Location': '/auth/login'           
+    if (req.session.accessToken) {
+        res.writeHead(200, {
+            'TimelineUrl': '/'           
         });
     }else{
-        res.writeHead(200, {
-            'Location': '/'           
+        res.writeHead(401, {
+            'AuthUrl': '/auth/login'           
         });
     }
 

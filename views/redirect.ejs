@@ -11,10 +11,15 @@
     <p>Redirecting...</p>
 </body>
 
-<script>
+<script>    
     window.onunload = function() {
         window.opener.location.reload();
     }
+
+    window.setTimeout(
+        window.close(),
+        200
+    );
 </script>
 
 </html>

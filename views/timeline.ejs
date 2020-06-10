@@ -23,11 +23,11 @@
     xhr.onload = function () {
         if (xhr.status == 200) {
             document.getElementById('inlineTimeline').src =
-            xhr.getResponseHeader('Location');
+            xhr.getResponseHeader('TimelineUrl');
         }
-        if (xhr.status == 302) {       
-            var redirectUrl = xhr.getResponseHeader('Location') + 
-            '?retUrl=/redirect' + 
+        if (xhr.status == 401) {       
+            var redirectUrl = xhr.getResponseHeader('AuthUrl') + 
+            '?retUrl=/redirect';
 
             window.open(redirectUrl);
         }
