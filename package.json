@@ -6,11 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "./node_modules/nodemon/bin/nodemon.js Server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
+  },  
   "keywords": [],
   "author": "Hicham El Mansouri",
   "license": "MIT",
@@ -23,7 +19,8 @@
     "jsforce": "^1.9.3"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": ">= 8.0.0",
+    "npm": ">= 3.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
