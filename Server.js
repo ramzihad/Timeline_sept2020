@@ -103,16 +103,16 @@ app.get('/timeline', function (req, res, next) {
 
 app.get('/timelineUrl', function (req, res, next) {
     if (!req.session.accessToken) {
-        response.writeHead(302, {
+        res.writeHead(302, {
             'Location': '/auth/login'           
         });
     }else{
-        response.writeHead(200, {
+        res.writeHead(200, {
             'Location': '/'           
         });
     }
 
-    response.end();
+    res.end();
 });
 
 app.get('/redirect', function (req, res, next) {
