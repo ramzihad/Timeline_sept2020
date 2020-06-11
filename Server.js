@@ -105,7 +105,7 @@ app.get('/timelineUrl', function (req, res, next) {
             serverUrl: process.env.SFDC_LOGIN_URL,
             sessionId: req.headers.authorization.split(' ')[1]
         });
-
+        
         conn.identity(function (err, user) {
             if (err) {
                 res.status(401);
