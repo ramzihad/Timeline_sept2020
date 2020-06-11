@@ -74,13 +74,13 @@ app.get('/auth/callback', function (req, res) {
         );
 
         req.session.userInfo = userInfo;
-        
+
         let redirectUrl = process.env.INSTANCE_URL;
-        if(req.session.retUrl){
+        if (req.session.retUrl) {
             redirectUrl = req.session.retUrl;
-            redirectUrl += `?sid=${req.session.accessToken}`               
-        }    
-        
+            redirectUrl += `?sid=${req.session.accessToken}`
+        }
+
         res.redirect(redirectUrl);
     });
 });
@@ -97,7 +97,7 @@ app.get('/', function (req, res, next) {
     }
 });
 
-app.get('/home', function (req, res, next) {    
+app.get('/home', function (req, res, next) {
     res.render('home');
 });
 
@@ -107,13 +107,13 @@ app.get('/timeline', function (req, res, next) {
 
 app.get('/timelineUrl', function (req, res, next) {
     //Auth using header
-    if(req.headers.authorization){
+    if (req.headers.authorization) {
         console.log('Auth using acces token');
         console.log(req.headers.authorization.split(' ')[1]);
-        
-        res.status(200);    
+
+        res.status(200);
         res.send({
-            'TimelineUrl': process.env.INSTANCE_URL          
+            'TimelineUrl': process.env.INSTANCE_URL
         });
         /*
         let conn = new jsforce.Connection({
@@ -140,20 +140,22 @@ app.get('/timelineUrl', function (req, res, next) {
                     'TimelineUrl': process.env.INSTANCE_URL          
                 });
             }
-        );*/            
+        );*/
     }
 
     //Auth using Session
-    if (req.session.accessToken) {
-        res.status(200);    
-        res.send({
-            'TimelineUrl': process.env.INSTANCE_URL          
-        });    
-    }else{
-        res.status(401);
-        res.send({
-            'AuthUrl': process.env.INSTANCE_URL + '/auth/login'
-        });
+    else {
+        if (req.session.accessToken) {
+            res.status(200);
+            res.send({
+                'TimelineUrl': process.env.INSTANCE_URL
+            });
+        } else {
+            res.status(401);
+            res.send({
+                'AuthUrl': process.env.INSTANCE_URL + '/auth/login'
+            });
+        }
     }
 });
 
