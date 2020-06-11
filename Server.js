@@ -100,12 +100,13 @@ app.get('/', function (req, res, next) {
 app.get('/timelineUrl', function (req, res, next) {
     //Auth using header
     if (req.headers.authorization) {
+        console.log(req.headers);
         let conn = new jsforce.Connection({
             serverUrl: process.env.SFDC_LOGIN_URL,
             sessionId: req.headers.authorization.split(' ')[1]
         });
 
-        conn.login(function (err, userInfo) {
+        conn.identity(function (err, user) {
             if (err) {
                 res.status(401);
                 res.send({
