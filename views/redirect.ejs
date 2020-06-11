@@ -11,16 +11,12 @@
     <p>Redirecting...</p>
 </body>
 
-<script>    
-    window.onunload = function() {
-        alert('closing');
-        window.opener.location.reload();
-    }
+<script>        
+    var INSTANCE_URL = 'https://gocc-poc01.herokuapp.com';
+    var sid = window.location.search.split('sid=')[1];
 
-    window.setTimeout(
-        window.close(),
-        200
-    );
+    window.postMessage(sid, INSTANCE_URL);
+    //window.setTimeout(window.close(),200);
 </script>
 
 </html>

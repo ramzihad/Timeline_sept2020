@@ -9,24 +9,34 @@
 </head>
 
 <body>
-    <iframe id="inlineTimeline" 
-        title="Inline Timeline"
-        width="100%" 
-        height="100%" 
-        style="border: none;">
+    <iframe id="inlineTimeline" title="Inline Timeline" width="100%" height="100%" style="border: none;">
     </iframe>
 </body>
 
-<script>    
-    var INSTANCE_URL='https://gocc-poc01.herokuapp.com';
-    var xhr = new XMLHttpRequest();
+<script>
+    var INSTANCE_URL = 'https://gocc-poc01.herokuapp.com';
 
+    window.addEventListener("message", function (e) {
+        if (e.origin === INSTANCE_URL) {
+            function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                var expires = "expires=" + d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+
+            setCookie('connect.sid', e.data, 1);
+            window.location.reload();
+        }
+    }, false);
+    
+    var xhr = new XMLHttpRequest();
     xhr.onload = function () {
         if (xhr.status == 200) {
             document.getElementById('inlineTimeline').src =
-            JSON.parse(xhr.response).TimelineUrl;
+                JSON.parse(xhr.response).TimelineUrl;
         }
-        if (xhr.status == 401) {       
+        if (xhr.status == 401) {
             var redirectUrl = JSON.parse(xhr.response).AuthUrl;
             redirectUrl += '?retUrl=https://localhost:8081/redirect'
             window.open(redirectUrl);

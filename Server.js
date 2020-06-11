@@ -3,6 +3,7 @@ const express = require('express'),
     jsforce = require('jsforce'),
     https = require('https'),
     fs = require('fs');
+const { UV_FS_O_FILEMAP } = require('constants');
 
 let app = express();
 
@@ -75,10 +76,13 @@ app.get('/auth/callback', function (req, res) {
 
         req.session.userInfo = userInfo;
         
-        let rediretUrl = req.session.retUrl || process.env.INSTANCE_URL + '/';
-        console.log(rediretUrl);
-
-        res.redirect(rediretUrl);
+        let redirectUrl = process.env.INSTANCE_URL;
+        if(req.session.retUrl){
+            redirectUrl = req.session.retUrl;
+            redirectUrl += `?sid=${req.sessionID}`               
+        }    
+        
+        res.redirect(redirectUrl);
     });
 });
 
@@ -94,7 +98,7 @@ app.get('/', function (req, res, next) {
     }
 });
 
-app.get('/home', function (req, res, next) {
+app.get('/home', function (req, res, next) {    
     res.render('home');
 });
 
@@ -106,7 +110,7 @@ app.get('/timelineUrl', function (req, res, next) {
     if (req.session.accessToken) {
         res.status(200);    
         res.send( {
-            'TimelineUrl': process.env.INSTANCE_URL + '/'           
+            'TimelineUrl': process.env.INSTANCE_URL          
         });    
     }else{
         res.status(401);
