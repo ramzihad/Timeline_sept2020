@@ -111,7 +111,7 @@ app.get('/timelineUrl', function (req, res, next) {
     }else{
         res.status(401);
         res.send({
-            'AuthUrl': process.env.INSTANCE_URL + '/auth/login?retUrl=/redirect'           
+            'AuthUrl': process.env.INSTANCE_URL + '/auth/login'
         });
     }
 });

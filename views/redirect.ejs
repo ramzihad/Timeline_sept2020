@@ -13,13 +13,13 @@
 
 <script>    
     window.onunload = function() {
-        debugger;  
+        alert('closing');
         window.opener.location.reload();
     }
 
     window.setTimeout(
         window.close(),
-        30000
+        200
     );
 </script>
 

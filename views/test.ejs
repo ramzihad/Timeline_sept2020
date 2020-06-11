@@ -28,6 +28,7 @@
         }
         if (xhr.status == 401) {       
             var redirectUrl = JSON.parse(xhr.response).AuthUrl;
+            redirectUrl += '?retUrl=https://localhost:8081/redirect'
             window.open(redirectUrl);
         }
     };
