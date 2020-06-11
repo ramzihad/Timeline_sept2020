@@ -79,7 +79,7 @@ app.get('/auth/callback', function (req, res) {
         let redirectUrl = process.env.INSTANCE_URL;
         if(req.session.retUrl){
             redirectUrl = req.session.retUrl;
-            redirectUrl += `?sid=${req.sessionID}`               
+            redirectUrl += `?sid=${req.session.accessToken}`               
         }    
         
         res.redirect(redirectUrl);
@@ -107,9 +107,34 @@ app.get('/timeline', function (req, res, next) {
 });
 
 app.get('/timelineUrl', function (req, res, next) {
+    //Auth using header
+    if(req.headers.authorization){
+        console.log('Auth using acces token')
+
+        jsforce.login({
+            serverUrl : process.env.SFDC_LOGIN_URL,
+            sessionId : req.headers.authorization.split(' ')[1]
+          }, function(err, userInfo) {
+                //KO
+                if (err) { 
+                    res.status(401);
+                    res.send({
+                        'AuthUrl': process.env.INSTANCE_URL + '/auth/login'
+                    });
+                } 
+                //OK
+                res.status(200);    
+                res.send({
+                    'TimelineUrl': process.env.INSTANCE_URL          
+                });
+            }
+        );            
+    }
+
+    //Auth using Session
     if (req.session.accessToken) {
         res.status(200);    
-        res.send( {
+        res.send({
             'TimelineUrl': process.env.INSTANCE_URL          
         });    
     }else{

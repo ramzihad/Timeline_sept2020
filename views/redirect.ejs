@@ -14,9 +14,13 @@
 <script>        
     var INSTANCE_URL = 'https://gocc-poc01.herokuapp.com';
     var sid = window.location.search.split('sid=')[1];
+    
+    window.opener.postMessage({
+      origin: INSTANCE_URL,
+      sid: sid
+    });
 
-    window.postMessage(sid, INSTANCE_URL);
-    //window.setTimeout(window.close(),200);
+    window.setTimeout(window.close(),200);
 </script>
 
 </html>
