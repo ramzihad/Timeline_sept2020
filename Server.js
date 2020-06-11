@@ -119,13 +119,14 @@ app.get('/timelineUrl', function (req, res, next) {
         conn.login(function(err, userInfo) {
                 //KO
                 console.log(err);
-                
-                if (err) { 
+
+                /*if (err) { 
                     res.status(401);
                     res.send({
                         'AuthUrl': process.env.INSTANCE_URL + '/auth/login'
                     });
-                } 
+                }*/
+                 
                 //OK
                 res.status(200);    
                 res.send({
