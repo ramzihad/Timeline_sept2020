@@ -3,7 +3,6 @@ const express = require('express'),
     jsforce = require('jsforce'),
     https = require('https'),
     fs = require('fs');
-const { UV_FS_O_FILEMAP } = require('constants');
 
 let app = express();
 
@@ -109,12 +108,15 @@ app.get('/timeline', function (req, res, next) {
 app.get('/timelineUrl', function (req, res, next) {
     //Auth using header
     if(req.headers.authorization){
-        console.log('Auth using acces token')
-
-        jsforce.login({
+        console.log('Auth using acces token');
+        console.log(req.headers.authorization.split(' ')[1]);
+        
+        let conn = new jsforce.Connection({
             serverUrl : process.env.SFDC_LOGIN_URL,
             sessionId : req.headers.authorization.split(' ')[1]
-          }, function(err, userInfo) {
+        });
+
+        conn.login(function(err, userInfo) {
                 //KO
                 if (err) { 
                     res.status(401);
