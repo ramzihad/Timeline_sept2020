@@ -110,30 +110,37 @@ app.get('/timelineUrl', function (req, res, next) {
     if(req.headers.authorization){
         console.log('Auth using acces token');
         console.log(req.headers.authorization.split(' ')[1]);
-
+        
+        res.status(200);    
+        res.send({
+            'TimelineUrl': process.env.INSTANCE_URL          
+        });
+        /*
         let conn = new jsforce.Connection({
             serverUrl : process.env.SFDC_LOGIN_URL,
             sessionId : req.headers.authorization.split(' ')[1]
         });
 
+       
+
         conn.login(function(err, userInfo) {
                 //KO
                 console.log(err);
 
-                /*if (err) { 
+                (err) { 
                     res.status(401);
                     res.send({
                         'AuthUrl': process.env.INSTANCE_URL + '/auth/login'
                     });
-                }*/
-                 
+                }
+
                 //OK
                 res.status(200);    
                 res.send({
                     'TimelineUrl': process.env.INSTANCE_URL          
                 });
             }
-        );            
+        );*/            
     }
 
     //Auth using Session
