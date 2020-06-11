@@ -25,7 +25,7 @@
                 document.cookie += cname + "=" + cvalue + ";" + expires + ";path=/;";
             }
 
-            setCookie('accessToken', e.data.sid, 1);
+            setCookie('accesstoken', e.data.sid, 1);
             window.location.reload();
         }
     }, false);
@@ -45,12 +45,12 @@
     xhr.open('GET', INSTANCE_URL + '/timelineUrl');
 
     var cookies = document.cookie.split("; ");
-    var timelineCookie = cookies.find(function(v){
-        return v.startsWith("accessToken")
+    var accesstoken = cookies.find(function(v){
+        return v.startsWith("accesstoken")
     });        
-    if(timelineCookie){
-        accessToken = accessToken.split("=")[1];
-        xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`);
+    if(accesstoken){
+        accesstoken = accesstoken.split("=")[1];
+        xhr.setRequestHeader('Authorization', `Bearer ${accesstoken}`);
     }
 
     xhr.send();
