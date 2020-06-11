@@ -110,7 +110,7 @@ app.get('/timelineUrl', function (req, res, next) {
     if(req.headers.authorization){
         console.log('Auth using acces token');
         console.log(req.headers.authorization.split(' ')[1]);
-        
+
         let conn = new jsforce.Connection({
             serverUrl : process.env.SFDC_LOGIN_URL,
             sessionId : req.headers.authorization.split(' ')[1]
@@ -118,6 +118,8 @@ app.get('/timelineUrl', function (req, res, next) {
 
         conn.login(function(err, userInfo) {
                 //KO
+                console.log(err);
+                
                 if (err) { 
                     res.status(401);
                     res.send({
