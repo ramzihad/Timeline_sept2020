@@ -17,23 +17,22 @@
     </iframe>
 </body>
 
-<script>
+<script>    
+    var INSTANCE_URL='https://gocc-poc01.herokuapp.com';
     var xhr = new XMLHttpRequest();
 
     xhr.onload = function () {
         if (xhr.status == 200) {
             document.getElementById('inlineTimeline').src =
-            xhr.getResponseHeader('TimelineUrl');
+            JSON.parse(xhr.response).TimelineUrl;
         }
         if (xhr.status == 401) {       
-            var redirectUrl = xhr.getResponseHeader('AuthUrl') + 
-            '?retUrl=/redirect';
-
+            var redirectUrl = JSON.parse(xhr.response).AuthUrl;
             window.open(redirectUrl);
         }
     };
 
-    xhr.open('GET', '/timelineUrl');
+    xhr.open('GET', INSTANCE_URL + '/timelineUrl');
     xhr.send();
 </script>
 

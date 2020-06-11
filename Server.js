@@ -104,20 +104,24 @@ app.get('/timeline', function (req, res, next) {
 
 app.get('/timelineUrl', function (req, res, next) {
     if (req.session.accessToken) {
-        res.writeHead(200, {
+        res.status(200);    
+        res.send( {
             'TimelineUrl': process.env.INSTANCE_URL + '/'           
-        });
+        });    
     }else{
-        res.writeHead(401, {
-            'AuthUrl': process.env.INSTANCE_URL + '/auth/login'           
+        res.status(401);
+        res.send({
+            'AuthUrl': process.env.INSTANCE_URL + '/auth/login?retUrl=/redirect'           
         });
     }
-
-    res.end();
 });
 
 app.get('/redirect', function (req, res, next) {
     res.render('redirect');
+});
+
+app.get('/test', function (req, res, next) {
+    res.render('test');
 });
 
 app.listen(app.get('port'), function () {
