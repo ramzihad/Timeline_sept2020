@@ -75,7 +75,7 @@ app.get('/auth/callback', function (req, res) {
 
         req.session.userInfo = userInfo;
         
-        let rediretUrl = req.session.retUrl || '/';
+        let rediretUrl = req.session.retUrl || process.env.INSTANCE_URL + '/';
         console.log(rediretUrl);
 
         res.redirect(rediretUrl);
@@ -90,7 +90,7 @@ app.get('/', function (req, res, next) {
         });
 
     } else {
-        res.redirect('/auth/login');
+        res.redirect(process.env.INSTANCE_URL + '/auth/login');
     }
 });
 
@@ -105,11 +105,11 @@ app.get('/timeline', function (req, res, next) {
 app.get('/timelineUrl', function (req, res, next) {
     if (req.session.accessToken) {
         res.writeHead(200, {
-            'TimelineUrl': '/'           
+            'TimelineUrl': process.env.INSTANCE_URL + '/'           
         });
     }else{
         res.writeHead(401, {
-            'AuthUrl': '/auth/login'           
+            'AuthUrl': process.env.INSTANCE_URL + '/auth/login'           
         });
     }
 
