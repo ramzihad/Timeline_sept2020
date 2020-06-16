@@ -85,12 +85,6 @@ app.get('/auth/callback', function (req, res) {
     });
 });
 
-
-
-
-combo
-
-
 app.get('/', function (req, res, next) {
     if (req.session.accessToken) {
         res.render('index', {
