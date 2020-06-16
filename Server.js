@@ -85,13 +85,24 @@ app.get('/auth/callback', function (req, res) {
     });
 });
 
+
+
+
+combo
+
+
 app.get('/', function (req, res, next) {
     if (req.session.accessToken) {
         res.render('index', {
             instanceUrl: req.session.instanceUrl,
-            accessToken: req.session.accessToken
+            accessToken: req.session.accessToken,
+            persons: req.query.persons,
+            site: req.query.site,
+            role: req.query.role,
+            chart: req.query.chart || 'purple',
+            frameh: req.query.frameh || '530',                        
+            combo: req.query.combo || 0            
         });
-
     } else {
         res.redirect(process.env.INSTANCE_URL + '/auth/login');
     }
