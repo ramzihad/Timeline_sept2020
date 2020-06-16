@@ -90,7 +90,7 @@ app.get('/', function (req, res, next) {
         res.render('index', {
             instanceUrl: req.session.instanceUrl,
             accessToken: req.session.accessToken,
-            persons: req.query.persons.splice(','),
+            persons: JSON.stringify(req.query.persons.splice(',')),
             site: req.query.site,
             role: req.query.role,
             chart: req.query.chart || 'purple',
