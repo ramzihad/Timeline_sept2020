@@ -4,7 +4,117 @@
 <head>  
   <title>
     BPCE Timeline
-  </title>  
+  </title> 
+  
+  <script type="text/javascript" src="<%= instanceUrl %>//lightning.out.delegate.js"></script>
+  <script type="text/javascript"
+    data-src="https://albiantit--poc.lightning.force.com/jslibrary/1592305202000/ui-analytics-reporting/EclairNG.js">
+  </script>
+  <script type="text/javascript" src="<%= instanceUrl %>//resources.js"></script>
+  <script type="text/javascript" src="<%= instanceUrl %>//aura_prod.js"></script>
+  <script type="text/javascript" src="<%= instanceUrl %>//inline.js"></script>
+  <script type="text/javascript" src="<%= instanceUrl %>//appcore.js"></script>
+  <script type="text/javascript" src="<%= instanceUrl %>//app.js"></script>
+  <script type="text/javascript" src="<%= instanceUrl %>//bootstrap.js"></script>
+  <link href="<%= instanceUrl %>//app.css" type="text/css" rel="stylesheet">
+  <link href="<%= instanceUrl %>//BP.css" charset="utf-8" type="text/css" rel="stylesheet">
+
+  <style type="text/css">
+    .global[c-goccTimelineGlobal_goccTimelineGlobal] {
+      background: #f2f2f2
+    }
+
+    .box[c-goccTimelineGlobal_goccTimelineGlobal] {
+      background: #fff
+    }
+
+    .filterbadge[c-goccTimelineGlobal_goccTimelineGlobal] {
+      display: inline-flex;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+      border-radius: 15rem;
+      background: #bf0201;
+      color: #fff;
+      min-width: 1rem;
+      min-height: 1rem;
+      height: 1rem;
+      text-align: center;
+      font-size: .625rem;
+      padding: .125rem
+    }
+
+    .scrollContainer[c-goccTimelineGlobal_goccTimelineGlobal] {
+      overflow: auto;
+      position: relative
+    }
+
+    .timeline_zone[c-goccTimelineGlobal_goccTimelineGlobal] {
+      max-height: 100%;
+      width: 426px;
+      min-width: 426px;
+      max-width: 426px
+    }
+
+    .scrollArea[c-goccTimelineGlobal_goccTimelineGlobal] {
+      position: relative
+    }
+
+    .filtersZone[c-goccTimelineGlobal_goccTimelineGlobal] {
+      background: #e2e2e2
+    }
+
+    .filter_close_title[c-goccTimelineGlobal_goccTimelineGlobal] {
+      transform: rotate(-90deg);
+      position: absolute;
+      top: 26em;
+      left: -2.3rem !important
+    }
+
+    .filter_open_title[c-goccTimelineGlobal_goccTimelineGlobal] {
+      width: 220px;
+      min-width: 220px;
+      max-width: 220px
+    }
+
+    .filter_close[c-goccTimelineGlobal_goccTimelineGlobal] {
+      width: 48px
+    }
+  </style>
+  <style type="text/css">
+    .valuesDialog[c-goccTimelineFilters_goccTimelineFilters] {
+      position: absolute;
+      z-index: 10;
+      top: 200px;
+      left: 230px
+    }
+  </style>
+  <style type="text/css">
+    .summary[c-goccTimelineActivitySummary_goccTimelineActivitySummary] {
+      background-color: #fff
+    }
+
+    .summary[c-goccTimelineActivitySummary_goccTimelineActivitySummary] .picto_bpce[c-goccTimelineActivitySummary_goccTimelineActivitySummary] :hover[c-goccTimelineActivitySummary_goccTimelineActivitySummary],
+    .summary:hover[c-goccTimelineActivitySummary_goccTimelineActivitySummary] {
+      background-color: #ff0 !important
+    }
+  </style>
+  <style type="text/css">
+    .lastinterview[c-goccTimelineLastInterview_goccTimelineLastInterview] {
+      background-color: #fff
+    }
+
+    .lastinterview:hover[c-goccTimelineLastInterview_goccTimelineLastInterview] {
+      background-color: #fdfdfd;
+      border-left-color: #999;
+      border-top-color: #999;
+      border-left-style: solid;
+      border-bottom: 2px solid #999;
+      border-right: 2px solid #999;
+      border-top-style: solid
+    }
+  </style>
+
 </head>
 
 <body>
