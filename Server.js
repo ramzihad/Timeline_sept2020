@@ -36,8 +36,8 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token,Authorization,X-Authorization');
-    res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Expose-Headers', 'X-Api-Version, X-Request-Id, X-Response-Time');
+    res.setHeader('Access-Control-Allow-Methods', '*');    
     res.setHeader('Access-Control-Max-Age', '1000');
 
     next();
@@ -85,17 +85,17 @@ app.get('/auth/callback', function (req, res) {
     });
 });
 
-app.get('/', function (req, res, next) {
+app.post('/', function (req, res, next) {
     if (req.session.accessToken) {        
         res.render('index', {
             instanceUrl: req.session.instanceUrl,
             accessToken: req.session.accessToken,
-            persons: JSON.stringify(req.query.persons.split(',')),
-            site: req.query.site,
-            role: req.query.role,
-            chart: req.query.chart || 'purple',
-            frameh: req.query.frameh || '530',                        
-            combo: req.query.combo || 0            
+            persons: req.params.persons,
+            site: req.params.site,
+            role: req.params.role,
+            chart: req.params.chart || 'purple',
+            frameh: req.params.frameh || '530',                        
+            combo: req.params.combo || 0            
         });
     } else {
         res.redirect(process.env.INSTANCE_URL + '/auth/login');

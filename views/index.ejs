@@ -8,15 +8,23 @@
 </head>
 
 <body>
-  <div id="params">
+  <div id="outputParams">
     <ul>
-      <li>persons: '<%- persons %>'</li>
+      <li>persons: '<%= persons %>'</li>
       <li>site: '<%= site %>'</li>
       <li>role: '<%= role %>'</li>
       <li>chart: '<%= chart %>'</li>
       <li>frameh: '<%= frameh %>'</li>                    
       <li>combo: '<%= combo %></li>      
     </ul>
+  </div>
+  <div id="inputParams">
+    <input type="hidden"  id="persons" name="persons" value="<%= persons %>">
+    <input type="hidden"  id="site" name="site" value="<%= site %>">
+    <input type="hidden"  id="role" name="role" value="<%= role %>"> 
+    <input type="hidden"  id="chart" name="chart" value="<%= chart %>">            
+    <input type="hidden"  id="frameh" name="frameh" value="<%= frameh %>">            
+    <input type="hidden"  id="combo" name="combo" value="<%= combo %>">
   </div>
   <div id="AppContainer">
   </div>
@@ -25,23 +33,24 @@
 <script src="https://poc-frameout.cs129.force.com/testvisual/lightning/lightning.out.js"></script>
 
 <script>  
-  var appName = "c:goccTimelineAppOut";  
+  var appName = "c:goccTimelineAppOut";    
 
-  $Lightning.use(appName,
-    function () {
-      $Lightning.createComponent("c:goccTimelineGlobal", { 
-        persons: '<%- persons %>',
-        site: '<%= site %>',
-        role: '<%= role %>',
-        chart: '<%= chart %>',
-        frameh: '<%= frameh %>',                      
-        combo: '<%= combo %>'
-      }, "AppContainer");
-    }, 
-    "<%= instanceUrl %>", 
-    "<%= accessToken %>"
-  );
-
+  window.loadTimeline = function(persons, site, role, chart, frameh, combo){
+    $Lightning.use(appName,
+      function () {
+        $Lightning.createComponent("c:goccTimelineGlobal", { 
+          persons: document.getElementById('persons').value.split(','),
+          site: document.getElementById('site').value,
+          role: document.getElementById('role').value,
+          chart: document.getElementById('chart').value,
+          frameh: document.getElementById('frameh').value,                      
+          combo: document.getElementById('combo').value,
+        }, "AppContainer");
+      }, 
+      "<%= instanceUrl %>", 
+      "<%= accessToken %>"
+    );
+  }
 </script>
 
 </html>
