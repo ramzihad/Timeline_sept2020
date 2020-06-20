@@ -18,6 +18,7 @@
       <li>combo: '<%= combo %></li>      
     </ul>
   </div>
+
   <div id="inputParams">
     <input type="hidden"  id="persons" name="persons" value="<%= persons %>">
     <input type="hidden"  id="site" name="site" value="<%= site %>">
@@ -26,6 +27,7 @@
     <input type="hidden"  id="frameh" name="frameh" value="<%= frameh %>">            
     <input type="hidden"  id="combo" name="combo" value="<%= combo %>">
   </div>
+  
   <div id="AppContainer">
   </div>
 </body>
@@ -35,22 +37,20 @@
 <script>  
   var appName = "c:goccTimelineAppOut";    
 
-  window.loadTimeline = function(persons, site, role, chart, frameh, combo){
-    $Lightning.use(appName,
-      function () {
-        $Lightning.createComponent("c:goccTimelineGlobal", { 
-          persons: document.getElementById('persons').value.split(','),
-          site: document.getElementById('site').value,
-          role: document.getElementById('role').value,
-          chart: document.getElementById('chart').value,
-          frameh: document.getElementById('frameh').value,                      
-          combo: document.getElementById('combo').value,
-        }, "AppContainer");
-      }, 
-      "<%= instanceUrl %>", 
-      "<%= accessToken %>"
-    );
-  }
+  $Lightning.use(appName,
+    function () {
+      $Lightning.createComponent("c:goccTimelineGlobal", { 
+        persons: document.getElementById('persons').value.split(','),
+        site: document.getElementById('site').value,
+        role: document.getElementById('role').value,
+        chart: document.getElementById('chart').value,
+        frameh: document.getElementById('frameh').value,                      
+        combo: document.getElementById('combo').value,
+      }, "AppContainer");
+    }, 
+    "<%= instanceUrl %>", 
+    "<%= accessToken %>"
+  );  
 </script>
 
 </html>
