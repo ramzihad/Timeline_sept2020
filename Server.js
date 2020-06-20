@@ -116,14 +116,13 @@ app.get('/timelineUrl', function (req, res, next) {
         conn.identity(function (err, user) {
             if (err) {
                 res.status(401);
-                res.send({
-                    'AuthUrl': process.env.INSTANCE_URL + '/auth/login'
-                });
+                res.send({'AuthUrl': process.env.INSTANCE_URL + '/auth/login'});
             } else {
+                req.session.accessToken = conn.accessToken;
+                req.session.refreshToken = conn.refreshToken;
+
                 res.status(200);
-                res.send({
-                    'TimelineUrl': process.env.INSTANCE_URL
-                });
+                res.send({'TimelineUrl': process.env.INSTANCE_URL});
             }
         });
     }
