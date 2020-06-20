@@ -37,7 +37,7 @@
 <script>  
   var appName = "c:goccTimelineAppOut";    
 
-  var persons = document.getElementById('persons').value.split(',');
+  var persons = document.getElementById('persons');
   var site = document.getElementById('site').value;
   var role = document.getElementById('role').value;
   var chart = document.getElementById('chart').value;
@@ -47,7 +47,7 @@
   $Lightning.use(appName,
     function () {
       $Lightning.createComponent("c:goccTimelineGlobal", { 
-        persons: JSON.stringify(persons),
+        persons: persons,
         site: site,
         role: role,
         chart: chart,
