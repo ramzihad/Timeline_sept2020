@@ -31,6 +31,7 @@ app.use(express.static(__dirname + '/static'));
 
 //Body parser router
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 
 //Allow CORS
 app.use(function (req, res, next) {
@@ -88,7 +89,7 @@ app.get('/auth/callback', function (req, res) {
 app.post('/', function (req, res, next) {
     console.log(req.params);
     console.log(req.query);
-    
+
     if (req.session.accessToken) {        
         res.render('index', {
             instanceUrl: req.session.instanceUrl,
