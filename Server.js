@@ -96,7 +96,8 @@ app.post('/', function (req, res, next) {
             role: req.body.role,
             chart: req.body.chart || 'purple',
             frameh: req.body.frameh || '530',                        
-            combo: req.body.combo || 0            
+            combo: req.body.combo || 0,
+            display: process.env.DISPLAY_MODE            
         });
     } else {
         res.redirect(process.env.INSTANCE_URL + '/auth/login');

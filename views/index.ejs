@@ -8,7 +8,8 @@
 </head>
 
 <body>
-  <!--div id="outputParams">
+  <% if (display === 'TEST') { %>
+  <div id="outputParams">
     <ul>
       <li>persons: '<%= persons %>'</li>
       <li>site: '<%= site %>'</li>
@@ -17,8 +18,10 @@
       <li>frameh: '<%= frameh %>'</li>                    
       <li>combo: '<%= combo %></li>      
     </ul>
-  </div-->
+  </div>
+  <% } %>
 
+  <% if (display === 'ON') { %>
   <div id="inputParams">
     <input type="hidden"  id="persons" name="persons" value="<%= persons %>">
     <input type="hidden"  id="site" name="site" value="<%= site %>">
@@ -30,11 +33,13 @@
   
   <div id="AppContainer">
   </div>
+  <% } %>
 </body>
 
 <script src="<%= instanceUrl %>/lightning/lightning.out.js"></script>
 
-<script>  
+<% if (display === 'ON') { %> 
+<script>    
   var appName = "c:goccTimelineAppOut";    
 
   var persons = document.getElementById('persons').value.split(',');
@@ -59,5 +64,5 @@
     "<%= accessToken %>"
   );  
 </script>
-
+<% } %>
 </html>
