@@ -87,8 +87,7 @@ app.get('/auth/callback', function (req, res) {
 });
 
 app.post('/', function (req, res, next) {
-    console.log(req.params);
-    console.log(req.query);
+    console.log(req);
 
     if (req.session.accessToken) {        
         res.render('index', {
