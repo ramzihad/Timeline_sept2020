@@ -36,16 +36,23 @@
 
 <script>  
   var appName = "c:goccTimelineAppOut";    
+  
+  var persons = document.getElementById('persons').value.split(',');
+  var site = document.getElementById('site').value;
+  var role = document.getElementById('role').value;
+  var chart = document.getElementById('chart').value;
+  var frameh = document.getElementById('frameh').value;
+  var combo = document.getElementById('combo').value;
 
   $Lightning.use(appName,
     function () {
       $Lightning.createComponent("c:goccTimelineGlobal", { 
-        persons: document.getElementById('persons').value.split(','),
-        site: document.getElementById('site').value,
-        role: document.getElementById('role').value,
-        chart: document.getElementById('chart').value,
-        frameh: document.getElementById('frameh').value,                      
-        combo: document.getElementById('combo').value,
+        persons: persons,
+        site: site,
+        role: role,
+        chart: chart,
+        frameh: frameh,
+        combo: combo,
       }, "AppContainer");
     }, 
     "<%= instanceUrl %>", 
