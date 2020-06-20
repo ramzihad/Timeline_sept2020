@@ -86,9 +86,7 @@ app.get('/auth/callback', function (req, res) {
     });
 });
 
-app.post('/', function (req, res, next) {   
-    console.log(req.body);
-     
+app.post('/', function (req, res, next) {        
     if (req.session.accessToken) {        
         res.render('index', {
             instanceUrl: req.session.instanceUrl,
@@ -131,14 +129,10 @@ app.get('/timelineUrl', function (req, res, next) {
     else {
         if (req.session.accessToken) {
             res.status(200);
-            res.send({
-                'TimelineUrl': process.env.INSTANCE_URL
-            });
+            res.send({'TimelineUrl': process.env.INSTANCE_URL});
         } else {
             res.status(401);
-            res.send({
-                'AuthUrl': process.env.INSTANCE_URL + '/auth/login'
-            });
+            res.send({'AuthUrl': process.env.INSTANCE_URL + '/auth/login'});
         }
     }
 });
