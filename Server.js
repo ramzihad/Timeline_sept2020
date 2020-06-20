@@ -86,19 +86,17 @@ app.get('/auth/callback', function (req, res) {
     });
 });
 
-app.post('/', function (req, res, next) {
-    console.log(req);
-
+app.post('/', function (req, res, next) {    
     if (req.session.accessToken) {        
         res.render('index', {
             instanceUrl: req.session.instanceUrl,
             accessToken: req.session.accessToken,
-            persons: req.params.persons,
-            site: req.params.site,
-            role: req.params.role,
-            chart: req.params.chart || 'purple',
-            frameh: req.params.frameh || '530',                        
-            combo: req.params.combo || 0            
+            persons: req.body.persons,
+            site: req.body.site,
+            role: req.body.role,
+            chart: req.body.chart || 'purple',
+            frameh: req.body.frameh || '530',                        
+            combo: req.body.combo || 0            
         });
     } else {
         res.redirect(process.env.INSTANCE_URL + '/auth/login');
