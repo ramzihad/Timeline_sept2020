@@ -40,12 +40,9 @@
 
 <% if (display === 'ON') { %> 
 <script>    
-  var appName = "c:goccTimelineAppOut";    
-  //@Todo
-  //[{id:'0033O00000IHcKeQAL',label:'Philippe LAMONTAGNE'} ,{id:'0033O00000IHbtkQAD',label:'Amandine LAMONTAGNE'}  , {id:'0033O00000IHcKfQAL',label:'Grégory LAMONTAGNE'} ]
-
+  var appName = "c:goccTimelineAppOut";      
   
-  var persons = document.getElementById('persons').value.split(',');
+  var persons = document.getElementById('persons').value;
   var site = document.getElementById('site').value;
   var role = document.getElementById('role').value;
   var chart = document.getElementById('chart').value;
@@ -55,7 +52,7 @@
   $Lightning.use(appName,
     function () {
       $Lightning.createComponent("c:goccTimelineGlobal", { 
-        persons: JSON.stringify(persons),
+        persons: JSON.parse(persons),
         site: site,
         role: role,
         chart: chart,
