@@ -23,7 +23,7 @@
 
   <% if (display === 'ON') { %>
   <div id="inputParams">
-    <input type="hidden"  id="persons" name="persons" value="<%= persons %>">
+    <input type="hidden"  id="persons" name="persons" value="<%- persons %>">
     <input type="hidden"  id="site" name="site" value="<%= site %>">
     <input type="hidden"  id="role" name="role" value="<%= role %>"> 
     <input type="hidden"  id="chart" name="chart" value="<%= chart %>">            
@@ -41,7 +41,10 @@
 <% if (display === 'ON') { %> 
 <script>    
   var appName = "c:goccTimelineAppOut";    
+  //@Todo
+  //[{id:'0033O00000IHcKeQAL',label:'Philippe LAMONTAGNE'} ,{id:'0033O00000IHbtkQAD',label:'Amandine LAMONTAGNE'}  , {id:'0033O00000IHcKfQAL',label:'Grégory LAMONTAGNE'} ]
 
+  
   var persons = document.getElementById('persons').value.split(',');
   var site = document.getElementById('site').value;
   var role = document.getElementById('role').value;
