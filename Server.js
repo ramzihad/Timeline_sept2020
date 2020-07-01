@@ -79,7 +79,13 @@ app.get('/auth/callback', function (req, res) {
         let redirectUrl = process.env.INSTANCE_URL;
         if (req.session.retUrl) {
             redirectUrl = req.session.retUrl;
-            redirectUrl += `?sid=${req.session.accessToken}`
+            
+            if(redirectUrl.indexOf('?') != -1){
+                redirectUrl += `&sid=${req.session.accessToken}`
+            }
+            else{
+                redirectUrl += `?sid=${req.session.accessToken}`
+            }            
         }
 
         res.redirect(redirectUrl);
