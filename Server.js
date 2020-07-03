@@ -103,8 +103,8 @@ app.post('/', function (req, res, next) {
 
     if (accessToken) {        
         res.render('index', {
-            instanceUrl: accessToken,
-            accessToken: instanceUrl,
+            instanceUrl: instanceUrl,
+            accessToken: accessToken,
             persons: req.body.persons,
             site: req.body.site,
             role: req.body.role,
@@ -130,8 +130,8 @@ app.get('/', function (req, res, next) {
 
     if (accessToken) {        
         res.render('index', {
-            instanceUrl: accessToken,
-            accessToken: instanceUrl,
+            instanceUrl: instanceUrl,
+            accessToken: accessToken,
             persons: req.query.persons,
             site: req.query.site,
             role: req.query.role,
