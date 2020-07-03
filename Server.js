@@ -137,7 +137,9 @@ app.get('/timelineUrl', function (req, res, next) {
                 res.status(200);
                 res.send({
                     'TimelineUrl': process.env.INSTANCE_URL,
-                    'instanceUrl': req.session.instanceUrl
+                    'instanceUrl': conn.instanceUrl.replace(
+                        '.my.salesforce.', '.lightning.force.'
+                    )
                 });
             }
         });
