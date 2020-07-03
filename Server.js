@@ -49,7 +49,7 @@ let oauth2 = new jsforce.OAuth2({
     clientId: process.env.SFDC_CLIENT_ID,
     clientSecret: process.env.SFDC_CLIENT_SECRET,
     redirectUri: process.env.SFDC_REDIRECT_URI,
-    scope: 'api'
+    scope: 'api'    
 });
 
 app.get('/auth/login', function (req, res) {
