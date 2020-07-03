@@ -147,7 +147,10 @@ app.get('/timelineUrl', function (req, res, next) {
     else {
         if (req.session.accessToken) {
             res.status(200);
-            res.send({'TimelineUrl': process.env.INSTANCE_URL});
+            res.send({
+                'TimelineUrl': process.env.INSTANCE_URL,
+                'instanceUrl': req.session.instanceUrl
+            });
         } else {
             res.status(401);
             res.send({'AuthUrl': process.env.INSTANCE_URL + '/auth/login'});
