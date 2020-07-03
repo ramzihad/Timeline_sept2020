@@ -92,11 +92,19 @@ app.get('/auth/callback', function (req, res) {
     });
 });
 
-app.post('/', function (req, res, next) {        
-    if (req.session.accessToken) {        
+app.post('/', function (req, res, next) {
+    console.log(req);
+    let accessToken = req.body.accessToken ||
+                      req.session.accessToken;
+                      
+    let instanceUrl = req.body.instanceUrl ||
+                      req.session.instanceUrl;
+                      
+
+    if (accessToken) {        
         res.render('index', {
-            instanceUrl: req.session.instanceUrl,
-            accessToken: req.session.accessToken,
+            instanceUrl: accessToken,
+            accessToken: instanceUrl,
             persons: req.body.persons,
             site: req.body.site,
             role: req.body.role,
@@ -127,7 +135,10 @@ app.get('/timelineUrl', function (req, res, next) {
                 req.session.refreshToken = conn.refreshToken;
 
                 res.status(200);
-                res.send({'TimelineUrl': process.env.INSTANCE_URL});
+                res.send({
+                    'TimelineUrl': process.env.INSTANCE_URL,
+                    'instanceUrl': req.session.instanceUrl
+                });
             }
         });
     }
