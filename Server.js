@@ -118,6 +118,31 @@ app.post('/', function (req, res, next) {
     }
 });
 
+app.get('/', function (req, res, next) {
+    let accessToken = req.params.accessToken ||
+                      req.session.accessToken;
+                      
+    let instanceUrl = req.params.instanceUrl ||
+                      req.session.instanceUrl;
+                      
+
+    if (accessToken) {        
+        res.render('index', {
+            instanceUrl: accessToken,
+            accessToken: instanceUrl,
+            persons: req.params.persons,
+            site: req.params.site,
+            role: req.params.role,
+            chart: req.params.chart || 'purple',
+            frameh: req.params.frameh || '530',                        
+            combo: req.params.combo || 0,
+            display: process.env.DISPLAY_MODE            
+        });
+    } else {
+        res.redirect(process.env.INSTANCE_URL + '/auth/login');
+    }
+});
+
 app.get('/timelineUrl', function (req, res, next) {
     //Auth using header
     if (req.headers.authorization) {
