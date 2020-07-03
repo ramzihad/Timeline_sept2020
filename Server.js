@@ -119,6 +119,8 @@ app.post('/', function (req, res, next) {
 });
 
 app.get('/', function (req, res, next) {
+    console.log(req);
+    
     let accessToken = req.params.accessToken ||
                       req.session.accessToken;
                       
