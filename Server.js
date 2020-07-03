@@ -120,11 +120,11 @@ app.post('/', function (req, res, next) {
 
 app.get('/', function (req, res, next) {
     console.log(req);
-    
-    let accessToken = req.params.accessToken ||
+
+    let accessToken = req.query.accessToken ||
                       req.session.accessToken;
                       
-    let instanceUrl = req.params.instanceUrl ||
+    let instanceUrl = req.query.instanceUrl ||
                       req.session.instanceUrl;
                       
 
@@ -132,12 +132,12 @@ app.get('/', function (req, res, next) {
         res.render('index', {
             instanceUrl: accessToken,
             accessToken: instanceUrl,
-            persons: req.params.persons,
-            site: req.params.site,
-            role: req.params.role,
-            chart: req.params.chart || 'purple',
-            frameh: req.params.frameh || '530',                        
-            combo: req.params.combo || 0,
+            persons: req.query.persons,
+            site: req.query.site,
+            role: req.query.role,
+            chart: req.query.chart || 'purple',
+            frameh: req.query.frameh || '530',                        
+            combo: req.query.combo || 0,
             display: process.env.DISPLAY_MODE            
         });
     } else {
