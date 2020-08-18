@@ -94,6 +94,7 @@ app.get('/auth/callback', function (req, res) {
 
 app.post('/', function (req, res, next) {
     console.log(req.body);   
+    console.log(req.session);   
 
     let accessToken = req.body.accessToken ||
                       req.session.accessToken;
@@ -120,6 +121,9 @@ app.post('/', function (req, res, next) {
 });
 
 app.get('/', function (req, res, next) {
+    console.log(req.query);   
+    console.log(req.session);
+    
     let accessToken = req.query.accessToken ||
                       req.session.accessToken;
                       
