@@ -87,7 +87,9 @@ app.get('/auth/callback', function (req, res) {
                 redirectUrl += `?sid=${req.session.accessToken}`
             }            
         }
-
+        console.log(redirectUrl);
+        console.log(req.session);
+        
         res.redirect(redirectUrl);
     });
 });
