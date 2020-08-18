@@ -85,16 +85,17 @@ app.get('/auth/callback', function (req, res) {
             }
             else{
                 redirectUrl += `?sid=${req.session.accessToken}`
-            }            
+            }      
+
+            res.redirect(redirectUrl);      
         }
-        res.redirect(redirectUrl);
+        else{
+            res.status(404).send('No Return URL');
+        }        
     });
 });
 
-app.post('/', function (req, res, next) {
-    console.log(req.body);   
-    console.log(req.session);
-
+app.post('/', function (req, res, next) {    
     let accessToken = req.body.accessToken ||
                       req.session.accessToken;
                       
@@ -119,10 +120,7 @@ app.post('/', function (req, res, next) {
     }
 });
 
-app.get('/', function (req, res, next) {
-    console.log(req.query); 
-    console.log(req.session);  
-    
+app.get('/', function (req, res, next) {    
     let accessToken = req.query.accessToken ||
                       req.session.accessToken;
                       
