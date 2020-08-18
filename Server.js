@@ -94,8 +94,6 @@ app.get('/auth/callback', function (req, res) {
 
 app.post('/', function (req, res, next) {
     console.log(req.body);   
-    console.log(req.session);
-    console.log(req.session.accessToken);   
 
     let accessToken = req.body.accessToken ||
                       req.session.accessToken;
@@ -123,8 +121,7 @@ app.post('/', function (req, res, next) {
 
 app.get('/', function (req, res, next) {
     console.log(req.query);   
-    console.log(req.session);
-
+    
     let accessToken = req.query.accessToken ||
                       req.session.accessToken;
                       
@@ -162,6 +159,7 @@ app.get('/timelineUrl', function (req, res, next) {
                 res.status(401);
                 res.send({'AuthUrl': process.env.INSTANCE_URL + '/auth/login'});
             } else {
+                console.log(conn);
                 req.session.accessToken = conn.accessToken;
                 req.session.refreshToken = conn.refreshToken;
 
