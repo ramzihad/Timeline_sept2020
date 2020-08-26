@@ -1,10 +1,36 @@
 const express = require('express'),
+    winston = require("winston"),
+    CoralogixWinston = require("coralogix-logger-winston"),
     bodyParser = require('body-parser'),
     jsforce = require('jsforce'),
     https = require('https'),
     fs = require('fs');
 
 let app = express();
+
+/**
+* Init Coralogix config
+*/
+const config = {
+     privateKey: "65e13c6e-3c47-3c63-c4fe-41d26a742f23",
+     applicationName: process.env.HEROKU_APP_NAME,
+     subsystemName: "web",
+};
+
+/**
+* configure winston to user coralogix transport
+*/
+CoralogixWinston.CoralogixTransport.configure(config);
+
+winston.configure({
+    level: process.env.LOG_LEVEL,
+    transports: [
+        new CoralogixWinston.CoralogixTransport({
+            category: "Logs Coralogix"
+        }),
+        new transports.Console()
+    ]
+});
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
@@ -65,7 +91,13 @@ app.get('/auth/callback', function (req, res) {
     let authorizationCode = req.query.code;
     conn.authorize(authorizationCode, function (err, userInfo) {
         if (err) {
-            return console.error(err)
+            res.status(404).send('Not Authorized');
+
+            // create a log 
+            winston.error(err, { 
+                className:"Conn",
+                methodName:"authorize"
+            });
         }
 
         req.session.accessToken = conn.accessToken;
@@ -95,7 +127,7 @@ app.get('/auth/callback', function (req, res) {
     });
 });
 
-app.post('/', function (req, res, next) {    
+app.post('/', function (req, res, next) {
     let accessToken = req.body.accessToken ||
                       req.session.accessToken;
                       
@@ -120,7 +152,7 @@ app.post('/', function (req, res, next) {
     }
 });
 
-app.get('/', function (req, res, next) {    
+app.get('/', function (req, res, next) {
     let accessToken = req.query.accessToken ||
                       req.session.accessToken;
                       
@@ -157,6 +189,12 @@ app.get('/timelineUrl', function (req, res, next) {
             if (err) {
                 res.status(401);
                 res.send({'AuthUrl': process.env.INSTANCE_URL + '/auth/login'});
+        
+                // create a log                  
+                winston.error(err, { 
+                    className:"Conn",
+                    methodName:"identity"
+                });                
             } else {                
                 req.session.accessToken = conn.accessToken;
                 req.session.refreshToken = conn.refreshToken;
@@ -181,10 +219,29 @@ app.get('/timelineUrl', function (req, res, next) {
                 'instanceUrl': req.session.instanceUrl
             });
         } else {
+            // create a log 
+            winston.error(err, { 
+                className:"Conn",
+                methodName:"authorize using session"
+            });
+
             res.status(401);
-            res.send({'AuthUrl': process.env.INSTANCE_URL + '/auth/login'});
+            res.send({'AuthUrl': process.env.INSTANCE_URL + '/auth/login'});            
         }
     }
+});
+
+app.use(function (req, res, next) {
+    let msg = `Request: HTTP ${req.method} ${req.url}; ipAddress ${req.connection.remoteAddress}`;    
+    msg += '; query ' + JSON.stringify(req.query) + '; body ' + JSON.stringify(req.body);
+    msg += `Response: status ${res.status}`;
+
+    winston.info(msg, { 
+        className:"Request",
+        methodName: req.method
+    });
+
+    next();
 });
 
 app.listen(app.get('port'), function () {
