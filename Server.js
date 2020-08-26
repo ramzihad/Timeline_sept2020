@@ -39,15 +39,28 @@ if (process.env.NODE_ENV !== 'production') {
 app.set('port', process.env.PORT || 8080);
 
 //Session
-app.set('trust proxy', 1);
-app.use(require('express-session')({
-    secret: 'LDFO09034',
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-        secure: true
+const redis = require('redis');
+const session = require('express-session');
+
+let RedisStore = require('connect-redis')(session)
+let redisClient = redis.createClient(
+    process.env.REDIS_URL,
+    { 
+        no_ready_check: true 
     }
-}));
+);
+
+app.use(session(
+    {
+        store: new RedisStore({ client: redisClient }),
+        secret: 'LDFL09PO09X034',
+        resave: true,
+        saveUninitialized: true,
+        cookie: {
+            secure: true
+        }
+    })
+);
 
 //View Engine
 app.set('view engine', 'ejs');
