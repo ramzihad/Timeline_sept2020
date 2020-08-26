@@ -220,7 +220,7 @@ app.get('/timelineUrl', function (req, res, next) {
             });
         } else {
             // create a log 
-            winston.error(err, { 
+            winston.error("No Access Token", { 
                 className:"Conn",
                 methodName:"authorize using session"
             });
