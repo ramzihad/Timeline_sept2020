@@ -234,7 +234,7 @@ app.get('/timelineUrl', function (req, res, next) {
 app.use(function (req, res, next) {
     let msg = `Request: HTTP ${req.method} ${req.url}; ipAddress ${req.connection.remoteAddress}`;    
     msg += '; query ' + JSON.stringify(req.query) + '; body ' + JSON.stringify(req.body);
-    msg += `\nResponse: status ${res.statusCode}`;
+    msg += `; status ${res.statusCode}`;
 
     winston.info(msg, { 
         className:"Request",
