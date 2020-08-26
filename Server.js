@@ -28,7 +28,7 @@ winston.configure({
         new CoralogixWinston.CoralogixTransport({
             category: "Logs Coralogix"
         }),
-        new transports.Console()
+        new winston.transports.Console()
     ]
 });
 
