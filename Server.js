@@ -69,7 +69,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/static'));
 
 //Body parser router
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //Allow CORS
